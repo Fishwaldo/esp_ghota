@@ -1,0 +1,8 @@
+## IDF Component Manager Manifest File
+dependencies:
+  Fishwaldo/esp_ghota:
+    version: '*'
+    override_path: '../../..'
+  ## Required IDF version
+  idf:
+    version: ">=4.4.0"

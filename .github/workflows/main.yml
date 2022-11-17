@@ -1,0 +1,52 @@
+on:
+  push:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: write
+name: Build
+jobs:
+  build:
+    strategy:
+      fail-fast: true
+      matrix: 
+        targets: [esp32, esp32s3]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+    - name: esp-idf build
+      uses: espressif/esp-idf-ci-action@v1
+      with:
+        esp_idf_version: v4.4
+        target: ${{ matrix.targets }}
+        path: 'examples/esp_ghota_example'
+    - name: Rename artifact
+      run: |
+        cp build/esp_ghota_example.bin esp_ghota_example-${{ matrix.targets }}.bin
+        cp build/storage.bin storage-${{ matrix.targets }}.bin
+    - name: Archive Firmware Files
+      uses: actions/upload-artifact@v3
+      with: 
+        name: ${{ matrix.targets }}-firmware
+        path: "*-${{ matrix.targets }}.bin"
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Firmware Files
+      uses: actions/download-artifact@v2
+      with:
+        path: release
+    - name: Release Firmware
+      uses: ncipollo/release-action@v1
+      if: startsWith(github.ref, 'refs/tags/') 
+      with:
+        artifacts: release/*/*.bin
+        generateReleaseNotes: true
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }}

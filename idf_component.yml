@@ -1,0 +1,15 @@
+# Version of the component [Required, if not passed during upload]
+version: "1.0.0"
+# Short description for the project [Recommended]
+description: esp32 OTA Component to update firmware from Github Releases
+# Github repo or a home  [Recommended]
+url: https://github.com/Fishwaldo/esp_ghota
+
+# List of dependencies [Optional]
+# All dependencies of the component should be published in the same registry.
+#dependencies:
+  # Default namespace is `espressif`
+  # Declaring dependency as `cool_component` is the same as `espressif/cool_component`
+  #cool_component: ">1.0.0"
+  #some_ns/some_component:
+  #  version: "~1.2.7"

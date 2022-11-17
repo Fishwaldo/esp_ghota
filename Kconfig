@@ -1,0 +1,33 @@
+menu "Github OTA Configuration"
+
+    config MAX_FILENAME_LEN
+        int "The Max Size Of Filenames"
+        default 64
+        help
+            The Maximum Size of Filenames stored at the Repository
+
+    config MAX_URL_LEN
+        int "The Max Size Of URLs"
+        default 128
+        help
+            The Maximum Size of URl's to download Firmware Files
+    
+    config GITHUB_HOSTNAME
+        string "The Hostname of the Github Repository"
+        default "api.github.com"
+        help
+            The Hostname of the Github API Server
+
+    config GITHUB_OWNER
+        string "The Owner of the Github Repository"
+        default "Fishwaldo"
+        help
+            The Owner of the Github Repository
+
+    config GITHUB_REPO
+        string "The Repository of the Github Repository"
+        default "esp_ghota"
+        help
+            The Repository of the Github Repository
+
+endmenu
