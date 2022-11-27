@@ -55,3 +55,7 @@ dkms.conf
 build/
 dependencies.lock
 sdkconfig
+docs/build
+docs/latex
+*~
+

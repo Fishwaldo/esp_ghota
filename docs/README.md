@@ -118,16 +118,14 @@ jobs:
       with:
         submodules: 'recursive'
     - name: esp-idf build
-      uses: Fishwaldo/esp-idf-ci-action@v1.1
+      uses: espressif/esp-idf-ci-action@v1
       with:
-        esp_idf_version: v4.4.3
+        esp_idf_version: v4.4
         target: ${{ matrix.targets }}
-        path: 'examples/esp_ghota_example'
     - name: Rename artifact
       run: |
-        ls -lah 
-        cp examples/esp_ghota_example/build/esp_ghota_example.bin esp_ghota_example-${{ matrix.targets }}.bin
-        cp examples/esp_ghota_example/build/storage.bin storage-${{ matrix.targets }}.bin
+        cp build/GithubOTA.bin GithubOTA-${{ matrix.targets }}.bin
+        cp build/storage.bin storage-${{ matrix.targets }}.bin
     - name: Archive Firmware Files
       uses: actions/upload-artifact@v3
       with: 
