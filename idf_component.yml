@@ -1,5 +1,5 @@
 # Version of the component [Required, if not passed during upload]
-version: "1.0.0"
+version: "0.0.1"
 # Short description for the project [Recommended]
 description: esp32 OTA Component to update firmware from Github Releases
 # Github repo or a home  [Recommended]
