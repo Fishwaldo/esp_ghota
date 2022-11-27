@@ -25,7 +25,7 @@ You should be careful with your GitHub PAT and putting it in the source code. I 
 via the Espressif Component Registry:
 
 ```bash
-idf.py add-dependency Fishwaldo/ghota^1.0.0
+idf.py add-dependency Fishwaldo/ghota^0.0.1
 ```
 
 ## Example
