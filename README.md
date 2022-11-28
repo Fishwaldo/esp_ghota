@@ -22,14 +22,31 @@ You should be careful with your GitHub PAT and putting it in the source code. I 
 
 ## Usage
 
-via the Espressif Component Registry:
+### esp-idf via Espressif Component Registry:
 
 ```bash
 idf.py add-dependency Fishwaldo/ghota^0.0.1
 ```
 
+#### Platform IO Registry:
+
+add this to your platform.ini file:
+
+```ini 
+lib_deps = 
+    Fishwaldo/ghota@^0.0.1
+```
+
+You also need to copy the contents of [Kconfig](Kconfig) into your project's Kconfig file, and run pio run -t menuconfig to configure the component.
+
+#### API Documentation:
+
+More details on the API are available [here](https://esp-github-ota.readthedocs.io/en/latest/index.html)
+
 ## Example
 After Initilizing Network Access, Start a timer to periodically check for new releases:
+
+(if you a reading this from https://components.espressif.com, please note that this website munges the examples below. Please refer to https://github.com/Fishwaldo/esp_ghota for the correct examples)
 
 ```c
     ghota_config_t ghconfig = {

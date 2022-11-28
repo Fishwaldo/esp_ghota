@@ -1,0 +1,34 @@
+{
+    "name": "esp_ghota",
+    "version": "0.0.1",
+    "description": "a OTA library to upgrade your firmware via the Github Releases API",
+    "keywords": "esp32 ota github",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/Fishwaldo/esp_ghota.git"
+    },
+    "authors":
+    [
+      {
+        "name": "Justin Hammond",
+        "email": "justin@dynam.ac",
+        "url": "https://github.com/Fishwaldo",
+        "maintainer": true
+      }
+    ],
+    "license": "MIT",
+    "frameworks": "espidf",
+    "platforms": "espressif32",
+    "headers": ["include/esp_ghota.h", "include/semver.h"],
+    "examples": [
+        {
+            "name": "esp_ghota_example",
+            "base": "examples/esp_ghota_example",
+            "files" : [
+                "main/main.c",
+                "spiffs/test.txt"
+            ]
+        }
+    ]
+  }
