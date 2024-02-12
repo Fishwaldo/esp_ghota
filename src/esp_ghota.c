@@ -313,7 +313,7 @@ esp_err_t ghota_check(ghota_client_handle_t *handle)
     esp_err_t err = esp_http_client_perform(client);
     if (err == ESP_OK)
     {
-        ESP_LOGD(TAG, "HTTP GET Status = %d, content_length = %d",
+        ESP_LOGD(TAG, "HTTP GET Status = %d, content_length = %lld",
                  esp_http_client_get_status_code(client),
                  esp_http_client_get_content_length(client));
     }
@@ -382,10 +382,10 @@ static esp_err_t validate_image_header(esp_app_desc_t *new_app_info)
     
     const esp_partition_t *running = esp_ota_get_running_partition();
     ESP_LOGD(TAG, "Current partition %s type %d subtype %d (offset 0x%08x)",
-             running->label, running->type, running->subtype, running->address);
+             running->label, running->type, running->subtype, (int)running->address);
     const esp_partition_t *update = esp_ota_get_next_update_partition(NULL);
     ESP_LOGD(TAG, "Update partition %s type %d subtype %d (offset 0x%08x)",
-             update->label, update->type, update->subtype, update->address);
+             update->label, update->type, update->subtype, (int)update->address);
 
 #ifdef CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK
     /**
@@ -480,7 +480,7 @@ esp_err_t ghota_storage_update(ghota_client_handle_t *handle) {
         xSemaphoreGive(ghota_lock);
         return ESP_FAIL;
     }
-    ESP_LOGD(TAG, "Storage Partition %s - Type %x Subtype %x Found at %x - size %d", handle->storage_partition->label, handle->storage_partition->type, handle->storage_partition->subtype, handle->storage_partition->address, handle->storage_partition->size);
+    ESP_LOGD(TAG, "Storage Partition %s - Type %x Subtype %x Found at %x - size %lu", handle->storage_partition->label, handle->storage_partition->type, handle->storage_partition->subtype, (int)handle->storage_partition->address, handle->storage_partition->size);
     ESP_ERROR_CHECK(esp_event_post(GHOTA_EVENTS, GHOTA_EVENT_START_STORAGE_UPDATE, NULL, 0, portMAX_DELAY));
     /* give time for the system to react, such as unmounting the filesystems etc */
     vTaskDelay(pdMS_TO_TICKS(1000));
@@ -503,9 +503,9 @@ esp_err_t ghota_storage_update(ghota_client_handle_t *handle) {
     ESP_ERROR_CHECK(esp_http_client_set_header(client, "Accept", "application/octet-stream"));
     esp_err_t err = esp_http_client_perform(client);
     if (err == ESP_OK) {
-        ESP_LOGD(TAG, "HTTP GET Status = %d, content_length = %d",
-                esp_http_client_get_status_code(client),
-                esp_http_client_get_content_length(client));
+        ESP_LOGD(TAG, "HTTP GET Status = %d, content_length = %lld",
+            esp_http_client_get_status_code(client),
+            esp_http_client_get_content_length(client));
         uint8_t sha256[32] = { 0 };
         ESP_ERROR_CHECK(esp_partition_get_sha256(handle->storage_partition, sha256));
         ESP_LOG_BUFFER_HEX("New Storage Partition SHA256:", sha256, sizeof(sha256));
@@ -731,7 +731,7 @@ esp_err_t ghota_start_update_timer(ghota_client_handle_t *handle) {
             ESP_LOGE(TAG, "Failed to start timer");
             return ESP_FAIL;
         } else { 
-            ESP_LOGI(TAG, "Started Update Timer for %d Minutes", handle->config.updateInterval);
+            ESP_LOGI(TAG, "Started Update Timer for %lu Minutes", handle->config.updateInterval);
         }
     }
     return ESP_OK;
