@@ -21,6 +21,11 @@ static const char *TAG = "GHOTA";
 
 ESP_EVENT_DEFINE_BASE(GHOTA_EVENTS);
 
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
+#define PRICONTENT_LENGTH PRId64
+#else
+#define PRICONTENT_LENGTH PRId32
+#endif
 typedef struct ghota_client_handle_t
 {
     ghota_config_t config;
@@ -334,7 +339,7 @@ esp_err_t ghota_check(ghota_client_handle_t *handle)
     esp_err_t err = esp_http_client_perform(client);
     if (err == ESP_OK)
     {
-        ESP_LOGD(TAG, "HTTP GET Status = %d, content_length = %" PRId64 ,
+        ESP_LOGD(TAG, "HTTP GET Status = %d, content_length = %" PRICONTENT_LENGTH ,
                  esp_http_client_get_status_code(client),
                  esp_http_client_get_content_length(client));
     }
@@ -544,7 +549,7 @@ esp_err_t ghota_storage_update(ghota_client_handle_t *handle)
     esp_err_t err = esp_http_client_perform(client);
     if (err == ESP_OK)
     {
-        ESP_LOGD(TAG, "HTTP GET Status = %d, content_length = %" PRId64,
+        ESP_LOGD(TAG, "HTTP GET Status = %d, content_length = %" PRICONTENT_LENGTH,
                  esp_http_client_get_status_code(client),
                  esp_http_client_get_content_length(client));
         uint8_t sha256[32] = {0};

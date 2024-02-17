@@ -1,6 +1,6 @@
 {
     "name": "esp_ghota",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "a OTA library to upgrade your firmware via the Github Releases API",
     "keywords": "esp32 ota github",
     "repository":
