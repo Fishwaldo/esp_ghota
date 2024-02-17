@@ -12,16 +12,17 @@ jobs:
       fail-fast: true
       matrix: 
         targets: [esp32, esp32s3]
+        espidf: [v4.4.6, v5.0.5, v5.1.2, v5.2]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: 'recursive'
     - name: esp-idf build
-      uses: Fishwaldo/esp-idf-ci-action@v1.2
+      uses: espressif/esp-idf-ci-action@v1
       with:
-        esp_idf_version: v4.4.3
+        esp_idf_version: ${{ matrix.espidf }}
         target: ${{ matrix.targets }}
         path: 'examples/esp_ghota_example'
     - name: Rename artifact

@@ -25,7 +25,7 @@ You should be careful with your GitHub PAT and putting it in the source code. I 
 ### esp-idf via Espressif Component Registry:
 
 ```bash
-idf.py add-dependency Fishwaldo/ghota^0.0.1
+idf.py add-dependency Fishwaldo/ghota^1.0.0
 ```
 
 #### Platform IO Registry:
@@ -34,7 +34,7 @@ add this to your platform.ini file:
 
 ```ini 
 lib_deps = 
-    Fishwaldo/ghota@^0.0.1
+    fishwaldo/ghota@^1.0.0
 ```
 
 You also need to copy the contents of [Kconfig](Kconfig) into your project's Kconfig file, and run pio run -t menuconfig to configure the component.
