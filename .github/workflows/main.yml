@@ -20,7 +20,7 @@ jobs:
       with:
         submodules: 'recursive'
     - name: esp-idf build
-      uses: Fishwaldo/esp-idf-ci-action@v1
+      uses: espressif/esp-idf-ci-action@v1
       with:
         esp_idf_version: ${{ matrix.espidf }}
         target: ${{ matrix.targets }}
